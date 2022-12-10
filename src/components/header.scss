@@ -1,0 +1,7 @@
+@import '../styles/variables.scss';
+
+.logo {
+    text-align: center;
+    @extend %font-24-medium;
+    padding: 20px 0;
+}
