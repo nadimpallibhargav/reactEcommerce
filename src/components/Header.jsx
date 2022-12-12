@@ -1,24 +1,37 @@
 import React from 'react';
-import { Menu, Input, Row, Col } from 'antd';
-import { MenuOutlined } from '@ant-design/icons';
+import { Input, Row, Col, Button, Dropdown, Space } from 'antd';
+import { MenuOutlined, ShoppingCartOutlined, FileDoneOutlined, UserOutlined } from '@ant-design/icons';
 import './header.scss';
 
-function getItem(label, key, items, type) {
-    return {
-      key,
-      items,
-      label,
-      type,
-    };
-}
-
-const items = [    
-    getItem('Vegitables', 'vegitables', [
-      getItem('Tomoto', 'tomoto'),
-    ]),
-    getItem('Fruits', 'fruits', [
-      getItem('Apple', ''),
-    ]),
+const items = [
+    {
+      key: '1',
+      label: 'Vegitables',
+      children: [
+        {
+          key: '1-1',
+          label: 'Carrot',
+        },
+        {
+          key: '1-2',
+          label: 'Beans',
+        },
+      ],
+    },
+    {
+      key: '2',
+      label: 'Fruits',
+      children: [
+        {
+          key: '2-1',
+          label: 'Apple',
+        },
+        {
+          key: '2-2',
+          label: 'Bannana',
+        },
+      ],
+    },
 ];
 
 const { Search } = Input;
@@ -32,45 +45,38 @@ export const Header = () => {
                 <div className="logo">
                     MyBazaar
                 </div>
-                <Row>
-                    <Col 
-                        xs={{
-                            span: 24,
-                        }}
-                        sm={{
-                            span: 24,
-                        }}
-                        lg={{
-                            span: 12,
-                        }}
-                        md={{
-                            span: 12,
-                        }}
-                    >                                              
-                        <Menu mode="horizontal">
-                            <Menu.SubMenu key="SubMenu" title="Shop By Category" icon={<MenuOutlined />}>
-                                <Menu
-                                    mode="vertical"
-                                    items={items}
-                                />
-                            </Menu.SubMenu>
-                        </Menu>                        
+                <Row justify='space-between' align='middle'>
+                    <Col span={3}>                                              
+                        <Dropdown
+                            menu={{
+                            items,
+                            }}
+                        >
+                            <Button onClick={(e) => e.preventDefault()}>
+                                <Space>
+                                    <MenuOutlined />
+                                    Shop By Category                                    
+                                </Space>
+                            </Button>
+                        </Dropdown>                       
                     </Col>
-                    <Col 
-                        xs={{
-                            span: 24,
-                        }}
-                        sm={{
-                            span: 24,
-                        }}
-                        lg={{
-                            span: 12,
-                        }}
-                        md={{
-                            span: 12,
-                        }}
-                    >                        
-                        <Search placeholder="Search for a Product" onSearch={onSearch} enterButton />
+                    <Col span={12}>                        
+                        <Search placeholder="Search for a Product" onSearch={onSearch} height='auto' />
+                    </Col>
+                    <Col span={2}>
+                        <Button type='text'>
+                            <FileDoneOutlined /> My Orders
+                        </Button>                        
+                    </Col>
+                    <Col span={3}>
+                        <Button type='text'>
+                            <ShoppingCartOutlined /> No Items In the Bag
+                        </Button>                        
+                    </Col>
+                    <Col span={3}>
+                        <Button type='text'>
+                            <UserOutlined /> Log In/Sign Up
+                        </Button>
                     </Col>
                 </Row>
             </div>
